@@ -1,13 +1,16 @@
 from django.shortcuts import render
 import plotly.graph_objects as go
+from django.http import Http404
 
 fig = go.Figure()
 fig.add_trace(go.Bar(x=[1, 3, 4], y=[2, 3, 1]))
+
+
 fig = fig.to_html(full_html=False)
 
 
 def index(req):
-    return render(req, 'index.html', {'myFig': fig})
+    return render(req, 'index.html')
 
 
 def tables(req):
@@ -36,3 +39,7 @@ def layout_sidenav_light(req):
 
 def charts(req):
     return render(req, 'charts.html')
+
+
+def error404handler(req, exception):
+    return render(req, '404.html')
